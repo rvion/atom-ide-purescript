@@ -18,6 +18,7 @@ import Data.String (length, take)
 import Data.String.Regex (noFlags, regex)
 import IdePurescript.PscIde (getType)
 import PscIde (NET)
+import IdePurescript.Atom.TypeFormat (temporaryFormat)
 
 foreign import data TooltipProvider :: *
 foreign import mkTooltipProvider :: forall eff a. EffFn1 eff (EffFn1 eff {line :: Int, column :: Int} (Promise a)) TooltipProvider
@@ -67,7 +68,7 @@ getTooltips port state pos = do
         Just { word, qualifier } -> do
           let prefix = maybe "" id qualifier
           ty <- getType port word state.main prefix (Modules.getUnqualActiveModules state $ Just word) (flip Modules.getQualModule $ state)
-          pure { valid: length ty > 0, info: ty }
+          pure { valid: length ty > 0, info: (temporaryFormat ty) }
         _ -> pure { valid: false, info: "" }
     _ -> pure { valid: false, info: "" }
   where

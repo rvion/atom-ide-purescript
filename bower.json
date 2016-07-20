@@ -23,5 +23,8 @@
     "purescript-node-fs-aff": "^1.0.0",
     "purescript-dom": "^1.0.0",
     "purescript-psa-utils": "^1.0.0"
+  },
+  "devDependencies": {
+    "purescript-psci-support": "^1.0.0"
   }
 }
